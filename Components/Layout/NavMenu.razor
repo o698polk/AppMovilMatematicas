@@ -1,0 +1,50 @@
+<div class="nav-header">
+    <div class="nav-mascot-wrap">
+        <span class="nav-mascot">🧮</span>
+        <span class="nav-sparkle">✨</span>
+    </div>
+    <div>
+        <div class="nav-brand">¡Aprende Mates!</div>
+        <div class="nav-subtitle">MateAppPlus</div>
+    </div>
+</div>
+
+<nav class="nav-menu">
+    <NavLink class="nav-item" href="" Match="NavLinkMatch.All" @onclick="NotifyNavigate">
+        <span class="nav-emoji">🏠</span>
+        <span>Inicio</span>
+    </NavLink>
+    <NavLink class="nav-item" href="videos" @onclick="NotifyNavigate">
+        <span class="nav-emoji">🎬</span>
+        <span>Videos</span>
+    </NavLink>
+    <NavLink class="nav-item" href="evaluaciones" @onclick="NotifyNavigate">
+        <span class="nav-emoji">📝</span>
+        <span>Evaluaciones</span>
+    </NavLink>
+    <NavLink class="nav-item" href="galeria" @onclick="NotifyNavigate">
+        <span class="nav-emoji">🖼️</span>
+        <span>Galería</span>
+    </NavLink>
+    <NavLink class="nav-item" href="juegos" @onclick="NotifyNavigate">
+        <span class="nav-emoji">🎮</span>
+        <span>Juegos</span>
+    </NavLink>
+    <NavLink class="nav-item" href="progreso" @onclick="NotifyNavigate">
+        <span class="nav-emoji">🏆</span>
+        <span>Mi Progreso</span>
+    </NavLink>
+    <NavLink class="nav-item" href="perfil" @onclick="NotifyNavigate">
+        <span class="nav-emoji">👤</span>
+        <span>Mi Perfil</span>
+    </NavLink>
+</nav>
+
+<div class="nav-footer">
+    <span>🌟 ¡Tú puedes!</span>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnNavigate { get; set; }
+    private async Task NotifyNavigate() => await OnNavigate.InvokeAsync();
+}

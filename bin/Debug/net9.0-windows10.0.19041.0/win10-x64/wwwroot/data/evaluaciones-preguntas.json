@@ -1,0 +1,504 @@
+{
+  "evaluaciones": [
+    {
+      "clave": "Proporcionalidad",
+      "preguntas": [
+        {
+          "enunciado": "\u00BFQu\u00E9 es proporcionalidad directa?",
+          "explicacion": "Cuando dos magnitudes crecen o decrecen en la misma raz\u00F3n.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "Dos magnitudes en raz\u00F3n inversa",
+            "Dos magnitudes en la misma raz\u00F3n",
+            "Magnitudes sin relaci\u00F3n",
+            "Solo aplica en geometr\u00EDa"
+          ],
+          "indiceCorrecta": 1
+        },
+        {
+          "enunciado": "Si 3 l\u00E1pices cuestan $6, \u00BFcu\u00E1nto cuestan 6 l\u00E1pices?",
+          "explicacion": "(6\u00D76)\u00F73=12.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "12",
+            "16",
+            "9",
+            "20"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 4 l\u00E1pices cuestan $8, \u00BFcu\u00E1nto cuestan 7 l\u00E1pices?",
+          "explicacion": "(7\u00D78)\u00F74=14.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "14",
+            "18",
+            "11",
+            "22"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 5 l\u00E1pices cuestan $10, \u00BFcu\u00E1nto cuestan 8 l\u00E1pices?",
+          "explicacion": "(8\u00D710)\u00F75=16.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "16",
+            "20",
+            "13",
+            "24"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 6 l\u00E1pices cuestan $12, \u00BFcu\u00E1nto cuestan 9 l\u00E1pices?",
+          "explicacion": "(9\u00D712)\u00F76=18.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "18",
+            "22",
+            "15",
+            "26"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 7 l\u00E1pices cuestan $14, \u00BFcu\u00E1nto cuestan 10 l\u00E1pices?",
+          "explicacion": "(10\u00D714)\u00F77=20.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "20",
+            "24",
+            "17",
+            "28"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 8 l\u00E1pices cuestan $16, \u00BFcu\u00E1nto cuestan 11 l\u00E1pices?",
+          "explicacion": "(11\u00D716)\u00F78=22.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "22",
+            "26",
+            "19",
+            "30"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 9 l\u00E1pices cuestan $18, \u00BFcu\u00E1nto cuestan 12 l\u00E1pices?",
+          "explicacion": "(12\u00D718)\u00F79=24.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "24",
+            "28",
+            "21",
+            "32"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 10 l\u00E1pices cuestan $20, \u00BFcu\u00E1nto cuestan 13 l\u00E1pices?",
+          "explicacion": "(13\u00D720)\u00F710=26.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "26",
+            "30",
+            "23",
+            "34"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Si 11 l\u00E1pices cuestan $22, \u00BFcu\u00E1nto cuestan 14 l\u00E1pices?",
+          "explicacion": "(14\u00D722)\u00F711=28.",
+          "tema": "ProporcionalidadDirecta",
+          "opciones": [
+            "28",
+            "32",
+            "25",
+            "36"
+          ],
+          "indiceCorrecta": 0
+        }
+      ]
+    },
+    {
+      "clave": "Porcentajes",
+      "preguntas": [
+        {
+          "enunciado": "El 50% de un n\u00FAmero es:",
+          "explicacion": "50%=la mitad.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "La mitad",
+            "El doble",
+            "Un tercio",
+            "El total"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 11% de 20.",
+          "explicacion": "20\u00D711/100=2.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "2",
+            "7",
+            "-1",
+            "14"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 12% de 40.",
+          "explicacion": "40\u00D712/100=4.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "4",
+            "9",
+            "1",
+            "16"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 13% de 60.",
+          "explicacion": "60\u00D713/100=7.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "7",
+            "12",
+            "4",
+            "19"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 14% de 80.",
+          "explicacion": "80\u00D714/100=11.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "11",
+            "16",
+            "8",
+            "23"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 15% de 100.",
+          "explicacion": "100\u00D715/100=15.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "15",
+            "20",
+            "12",
+            "27"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 16% de 120.",
+          "explicacion": "120\u00D716/100=19.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "19",
+            "24",
+            "16",
+            "31"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 17% de 140.",
+          "explicacion": "140\u00D717/100=23.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "23",
+            "28",
+            "20",
+            "35"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 18% de 160.",
+          "explicacion": "160\u00D718/100=28.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "28",
+            "33",
+            "25",
+            "40"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Calcula el 19% de 180.",
+          "explicacion": "180\u00D719/100=34.",
+          "tema": "Porcentajes",
+          "opciones": [
+            "34",
+            "39",
+            "31",
+            "46"
+          ],
+          "indiceCorrecta": 0
+        }
+      ]
+    },
+    {
+      "clave": "Finanzas",
+      "preguntas": [
+        {
+          "enunciado": "El IVA del 19% es:",
+          "explicacion": "Impuesto sobre el subtotal.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "Impuesto del 19% sobre subtotal",
+            "Descuento 19%",
+            "19% del total final",
+            "Cargo fijo $19"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $100. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=19, total=119.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "119",
+            "100",
+            "19",
+            "169"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $200. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=38, total=238.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "238",
+            "200",
+            "38",
+            "288"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $300. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=57, total=357.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "357",
+            "300",
+            "57",
+            "407"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $400. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=76, total=476.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "476",
+            "400",
+            "76",
+            "526"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $500. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=95, total=595.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "595",
+            "500",
+            "95",
+            "645"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $600. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=114, total=714.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "714",
+            "600",
+            "114",
+            "764"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $700. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=133, total=833.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "833",
+            "700",
+            "133",
+            "883"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $800. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=152, total=952.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "952",
+            "800",
+            "152",
+            "1002"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Subtotal $900. \u00BFTotal con IVA 19%?",
+          "explicacion": "IVA=171, total=1071.",
+          "tema": "FacturasIva",
+          "opciones": [
+            "1071",
+            "900",
+            "171",
+            "1121"
+          ],
+          "indiceCorrecta": 0
+        }
+      ]
+    },
+    {
+      "clave": "Razones",
+      "preguntas": [
+        {
+          "enunciado": "La raz\u00F3n 8:12 simplificada es:",
+          "explicacion": "8/12=2/3.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "3:2",
+            "4:6",
+            "8:12"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 2:3.",
+          "explicacion": "Dividimos por 1.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "2:3",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 4:6.",
+          "explicacion": "Dividimos por 2.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "4:6",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 6:9.",
+          "explicacion": "Dividimos por 3.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "6:9",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 8:12.",
+          "explicacion": "Dividimos por 4.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "8:12",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 10:15.",
+          "explicacion": "Dividimos por 5.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "10:15",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 12:18.",
+          "explicacion": "Dividimos por 6.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "12:18",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 14:21.",
+          "explicacion": "Dividimos por 7.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "14:21",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 16:24.",
+          "explicacion": "Dividimos por 8.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "16:24",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        },
+        {
+          "enunciado": "Simplifica 18:27.",
+          "explicacion": "Dividimos por 9.",
+          "tema": "Razones",
+          "opciones": [
+            "2:3",
+            "18:27",
+            "3:2",
+            "1:2"
+          ],
+          "indiceCorrecta": 0
+        }
+      ]
+    }
+  ]
+}

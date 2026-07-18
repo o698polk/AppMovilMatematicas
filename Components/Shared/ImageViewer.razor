@@ -1,0 +1,27 @@
+<div class="viewer-overlay" @onclick="OnCerrar">
+    <div class="viewer-modal" @onclick:stopPropagation="true">
+        <h2>@Titulo</h2>
+        <p>@Descripcion</p>
+        <div class="viewer-frame">
+            <img src="@Ruta" alt="@Titulo" style="width: @($"{_zoom * 100}%")" />
+        </div>
+        <div class="viewer-controls">
+            <button @onclick="ZoomOut" disabled="@(_zoom <= 1)">🔍−</button>
+            <span class="viewer-zoom-label">@((int)(_zoom * 100))%</span>
+            <button @onclick="ZoomIn" disabled="@(_zoom >= 2)">🔍+</button>
+            <button @onclick="OnCerrar">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Titulo { get; set; } = "";
+    [Parameter] public string Descripcion { get; set; } = "";
+    [Parameter] public string Ruta { get; set; } = "";
+    [Parameter] public EventCallback OnCerrar { get; set; }
+
+    private double _zoom = 1;
+
+    private void ZoomIn() => _zoom = Math.Min(2, _zoom + 0.25);
+    private void ZoomOut() => _zoom = Math.Max(1, _zoom - 0.25);
+}

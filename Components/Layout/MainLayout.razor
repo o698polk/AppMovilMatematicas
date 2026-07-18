@@ -1,0 +1,111 @@
+@inherits LayoutComponentBase
+@implements IDisposable
+@inject INavegacionUiService NavUi
+@inject IFullscreenUiService FullscreenUi
+
+<div class="app-shell @(!NavUi.NavVisible ? "nav-hidden" : "") @(FullscreenUi.Activo ? "media-fullscreen" : "")">
+    <div class="bg-decoration">
+        <span class="bubble b1"></span>
+        <span class="bubble b2"></span>
+        <span class="bubble b3"></span>
+        <span class="bubble b4"></span>
+    </div>
+
+    <header class="mobile-header">
+        <button type="button" class="menu-toggle" @onclick="ToggleMenu" aria-label="Abrir menú lateral">
+            <span class="menu-icon">☰</span>
+        </button>
+        <button type="button" class="nav-toggle-btn" @onclick="AlternarBarra" aria-label="@EtiquetaToggle">
+            <span>@IconoToggle</span>
+        </button>
+        <div class="mobile-brand">
+            <span class="mobile-mascot">🧮</span>
+            <span class="mobile-title">¡Aprende Mates!</span>
+        </div>
+    </header>
+
+    @if (_menuOpen)
+    {
+        <div class="sidebar-backdrop" @onclick="CloseMenu"></div>
+    }
+
+    <aside class="sidebar @(_menuOpen ? "open" : "")">
+        <NavMenu OnNavigate="CloseMenu" />
+        <button type="button" class="nav-collapse-btn" @onclick="AlternarBarra">
+            @(NavUi.NavVisible ? "◀ Ocultar menú" : "▶ Mostrar menú")
+        </button>
+    </aside>
+
+    <main class="main-content">
+        <button type="button" class="nav-desktop-toggle" @onclick="AlternarBarra" aria-label="@EtiquetaToggle">
+            @(NavUi.NavVisible ? "◀ Ocultar navegación" : "☰ Mostrar navegación")
+        </button>
+        <article class="content">
+            @Body
+        </article>
+    </main>
+
+    <nav class="bottom-nav">
+        <NavLink class="bottom-nav-item" href="" Match="NavLinkMatch.All">
+            <span class="bn-icon">🏠</span>
+            <span class="bn-label">Inicio</span>
+        </NavLink>
+        <NavLink class="bottom-nav-item" href="videos">
+            <span class="bn-icon">🎬</span>
+            <span class="bn-label">Videos</span>
+        </NavLink>
+        <NavLink class="bottom-nav-item" href="evaluaciones">
+            <span class="bn-icon">📝</span>
+            <span class="bn-label">Quiz</span>
+        </NavLink>
+        <NavLink class="bottom-nav-item" href="juegos">
+            <span class="bn-icon">🎮</span>
+            <span class="bn-label">Juegos</span>
+        </NavLink>
+        <NavLink class="bottom-nav-item" href="progreso">
+            <span class="bn-icon">🏆</span>
+            <span class="bn-label">Logros</span>
+        </NavLink>
+    </nav>
+
+    @if (!NavUi.NavVisible && !FullscreenUi.Activo)
+    {
+        <button type="button" class="nav-fab" @onclick="AlternarBarra" aria-label="Mostrar navegación">
+            ☰
+        </button>
+    }
+</div>
+
+@code {
+    private bool _menuOpen;
+
+    private string EtiquetaToggle => NavUi.NavVisible ? "Ocultar barra de navegación" : "Mostrar barra de navegación";
+    private string IconoToggle => NavUi.NavVisible ? "🔽" : "🔼";
+
+    protected override void OnInitialized()
+    {
+        NavUi.OnCambio += StateHasChanged;
+        FullscreenUi.OnCambio += OnFullscreenCambio;
+    }
+
+    private void OnFullscreenCambio()
+    {
+        if (FullscreenUi.Activo) _menuOpen = false;
+        StateHasChanged();
+    }
+
+    private void ToggleMenu() => _menuOpen = !_menuOpen;
+    private void CloseMenu() => _menuOpen = false;
+
+    private void AlternarBarra()
+    {
+        NavUi.AlternarNav();
+        if (!NavUi.NavVisible) _menuOpen = false;
+    }
+
+    public void Dispose()
+    {
+        NavUi.OnCambio -= StateHasChanged;
+        FullscreenUi.OnCambio -= OnFullscreenCambio;
+    }
+}

@@ -1,0 +1,47 @@
+@page "/videos/{VideoId:int}"
+@implements IDisposable
+
+<PageTitle>@(_video?.Titulo ?? "Video")</PageTitle>
+
+@if (_video is null)
+{
+    <p>Cargando...</p>
+}
+else
+{
+    <div class="section-card">
+        <h1>@_video.Titulo</h1>
+        <p>@_video.Descripcion</p>
+        <YouTubePlayer EmbedUrl="@_video.UrlYouTube" />
+        <div class="actions-row">
+            <button class="btn-fav" @onclick="ToggleFavorito">@(_video.EsFavorito ? "⭐ Favorito" : "☆ Marcar favorito")</button>
+            <a href="videos" class="btn-back">← Volver</a>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int VideoId { get; set; }
+    [Inject] IVideoService VideoService { get; set; } = default!;
+    private VideoDto? _video;
+    private bool _registrado;
+
+    protected override async Task OnInitializedAsync() => _video = await VideoService.ObtenerVideoAsync(VideoId);
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !_registrado && _video is not null)
+        {
+            _registrado = true;
+            await VideoService.RegistrarVisualizacionAsync(VideoId);
+        }
+    }
+
+    private async Task ToggleFavorito()
+    {
+        await VideoService.AlternarFavoritoAsync(VideoId);
+        _video = await VideoService.ObtenerVideoAsync(VideoId);
+    }
+
+    public void Dispose() { }
+}

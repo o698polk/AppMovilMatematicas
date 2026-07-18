@@ -1,0 +1,135 @@
+@page "/perfil"
+@inject IUsuarioService UsuarioService
+@inject NavigationManager Nav
+
+<PageTitle>Mi Perfil</PageTitle>
+<PageHeader Titulo="Mi Perfil" Subtitulo="Entra con tu nombre y continúa tu aventura" Emoji="👤" />
+
+@if (!string.IsNullOrEmpty(_mensaje))
+{
+    <div class="section-card perfil-mensaje animate-in">@_mensaje</div>
+}
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <div class="section-card perfil-error animate-in">@_error</div>
+}
+
+<div class="section-card perfil-card">
+    <h2 class="section-title-sm">🔑 Entrar o crear perfil</h2>
+    <p class="perfil-hint">Sin contraseña: solo escribe tu nombre y entra.</p>
+
+    <input @bind="_nombre" @bind:event="oninput" placeholder="Tu nombre de jugador" class="form-input" maxlength="40" />
+
+    <div class="perfil-actions">
+        <button class="btn-primary-custom" @onclick="Entrar">▶️ Entrar</button>
+        <button class="btn-fav" @onclick="NuevaPartida">✨ Nueva partida</button>
+        <button class="btn-reset" @onclick="ResetearJuego" disabled="@(_usuario is null)">🔄 Resetear juego</button>
+    </div>
+</div>
+
+@if (_usuario is not null)
+{
+    <div class="section-card perfil-actual animate-in">
+        <h2 class="section-title-sm">🎮 Jugando como</h2>
+        <div class="perfil-actual-info">
+            <span class="perfil-avatar">🧒</span>
+            <div>
+                <strong>@_usuario.Nombre</strong>
+                <p>@_usuario.Alias · ⭐ @_usuario.PuntosTotales pts · 🚀 Nivel @_usuario.Nivel</p>
+            </div>
+        </div>
+        <a href="progreso" class="btn-back">Ver mi progreso completo →</a>
+    </div>
+}
+
+@if (_perfiles.Count > 0)
+{
+    <div class="section-card">
+        <h2 class="section-title-sm">👥 Perfiles guardados</h2>
+        <div class="perfiles-grid">
+            @foreach (var p in _perfiles)
+            {
+                <button class="perfil-item @(p.Id == _usuario?.Id ? "activo" : "")" @onclick="() => Seleccionar(p.Id)">
+                    <span class="perfil-item-avatar">🧒</span>
+                    <strong>@p.Nombre</strong>
+                    <small>⭐ @p.PuntosTotales · Nv. @p.Nivel</small>
+                </button>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    private UsuarioDto? _usuario;
+    private IReadOnlyList<PerfilResumenDto> _perfiles = [];
+    private string _nombre = "";
+    private string _mensaje = "";
+    private string _error = "";
+
+    protected override async Task OnInitializedAsync() => await CargarAsync();
+
+    private async Task CargarAsync()
+    {
+        _usuario = await UsuarioService.ObtenerUsuarioActualAsync();
+        _perfiles = await UsuarioService.ListarPerfilesAsync();
+        _nombre = _usuario.Nombre;
+    }
+
+    private async Task Entrar()
+    {
+        _error = ""; _mensaje = "";
+        try
+        {
+            var antes = _usuario?.Nombre;
+            _usuario = await UsuarioService.EntrarPorNombreAsync(_nombre);
+            _perfiles = await UsuarioService.ListarPerfilesAsync();
+            _mensaje = antes?.Equals(_usuario.Nombre, StringComparison.OrdinalIgnoreCase) == true
+                ? MensajesRefuerzo.PerfilEntrada
+                : MensajesRefuerzo.PerfilCreado;
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+    private async Task NuevaPartida()
+    {
+        _error = ""; _mensaje = "";
+        try
+        {
+            _usuario = await UsuarioService.CrearNuevaPartidaAsync(_nombre);
+            _perfiles = await UsuarioService.ListarPerfilesAsync();
+            _mensaje = MensajesRefuerzo.PerfilCreado;
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+    private async Task ResetearJuego()
+    {
+        _error = ""; _mensaje = "";
+        try
+        {
+            await UsuarioService.ResetearProgresoActualAsync();
+            _usuario = await UsuarioService.ObtenerUsuarioActualAsync();
+            _perfiles = await UsuarioService.ListarPerfilesAsync();
+            _mensaje = MensajesRefuerzo.ProgresoReseteado;
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+    private async Task Seleccionar(int id)
+    {
+        _error = ""; _mensaje = "";
+        await UsuarioService.SeleccionarPerfilAsync(id);
+        await CargarAsync();
+        _mensaje = MensajesRefuerzo.PerfilEntrada;
+    }
+}

@@ -1,0 +1,32 @@
+@page "/videos"
+
+<PageTitle>Videos Educativos</PageTitle>
+<PageHeader Titulo="Videos Educativos" Subtitulo="¡Mira, aprende y gana estrellas!" Emoji="🎬" />
+
+@if (_videos is null)
+{
+    <div class="section-card loading-text">Cargando videos... 🎬</div>
+}
+else
+{
+    <div class="video-grid">
+        @foreach (var v in _videos)
+        {
+            <a href="videos/@v.Id" class="video-card bounce-hover">
+                <img src="@v.UrlMiniatura" alt="@v.Titulo" />
+                <div class="video-info">
+                    <h3>@v.Titulo</h3>
+                    <span>⏱️ @FormatearDuracion(v.DuracionSegundos) · @v.CategoriaNombre</span>
+                    @if (v.EsFavorito) { <span class="fav-badge">⭐ Favorito</span> }
+                </div>
+            </a>
+        }
+    </div>
+}
+
+@code {
+    [Inject] IVideoService VideoService { get; set; } = default!;
+    private IReadOnlyList<VideoDto>? _videos;
+    protected override async Task OnInitializedAsync() => _videos = await VideoService.ObtenerVideosAsync();
+    private static string FormatearDuracion(int s) => $"{s / 60}:{s % 60:D2}";
+}

@@ -1,0 +1,14 @@
+2026/07/13-22:28:40.192 1760 Reusing MANIFEST D:\IPA2026_EJERCICIOS_PRACTICOS\AppEducativa_Matematica\app\MauiApp2\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\MauiApp2.exe.WebView2\EBWebView\Default\WebStorage\1\IndexedDB\indexeddb.leveldb/MANIFEST-000001
+2026/07/13-22:28:40.192 1760 Recovering log #34
+2026/07/13-22:28:40.194 1760 Reusing old log D:\IPA2026_EJERCICIOS_PRACTICOS\AppEducativa_Matematica\app\MauiApp2\bin\Debug\net9.0-windows10.0.19041.0\win10-x64\MauiApp2.exe.WebView2\EBWebView\Default\WebStorage\1\IndexedDB\indexeddb.leveldb/000034.log 
+2026/07/13-22:28:40.195 1760 Delete type=2 #32
+2026/07/13-22:28:40.276 1760 Level-0 table #39: started
+2026/07/13-22:28:40.280 1760 Level-0 table #39: 16764 bytes OK
+2026/07/13-22:28:40.282 1760 Delete type=0 #34
+2026/07/13-22:28:40.283 1c4c Manual compaction at level-0 from '\x00\x0e\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0f\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0f\x00\x00\xc8\x11\x00L\x00o\x00g\x00s\x00R\x00e\x00q\x00u\x00e\x00s\x00t\x00s\x00S\x00t\x00o\x00r\x00e' @ 1899 : 1
+2026/07/13-22:28:40.284 1c4c Compacting 1@0 + 1@1 files
+2026/07/13-22:28:40.286 1c4c Generated table #40@0: 310 keys, 3950 bytes
+2026/07/13-22:28:40.286 1c4c Compacted 1@0 + 1@1 files => 3950 bytes
+2026/07/13-22:28:40.286 1c4c compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/07/13-22:28:40.286 1c4c Delete type=2 #39
+2026/07/13-22:28:40.288 1c4c Manual compaction at level-0 from '\x00\x0f\x00\x00\xc8\x11\x00L\x00o\x00g\x00s\x00R\x00e\x00q\x00u\x00e\x00s\x00t\x00s\x00S\x00t\x00o\x00r\x00e' @ 1899 : 1 .. '\x00\x0f\x00\x00\x00' @ 0 : 0; will stop at (end)

@@ -1,0 +1,81 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{268B8754-F9BE-4813-9C3F-FC296FB75503}|MauiApp2.csproj|d:\\ipa2026_ejercicios_practicos\\appeducativa_matematica\\app\\mauiapp2\\components\\pages\\evaluaciones\\evaluacioneslista.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{268B8754-F9BE-4813-9C3F-FC296FB75503}|MauiApp2.csproj|solutionrelative:components\\pages\\evaluaciones\\evaluacioneslista.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{268B8754-F9BE-4813-9C3F-FC296FB75503}|MauiApp2.csproj|d:\\ipa2026_ejercicios_practicos\\appeducativa_matematica\\app\\mauiapp2\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{268B8754-F9BE-4813-9C3F-FC296FB75503}|MauiApp2.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{268B8754-F9BE-4813-9C3F-FC296FB75503}|MauiApp2.csproj|d:\\ipa2026_ejercicios_practicos\\appeducativa_matematica\\app\\mauiapp2\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{268B8754-F9BE-4813-9C3F-FC296FB75503}|MauiApp2.csproj|solutionrelative:components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EvaluacionesLista.razor",
+              "DocumentMoniker": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\Components\\Pages\\Evaluaciones\\EvaluacionesLista.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Evaluaciones\\EvaluacionesLista.razor",
+              "ToolTip": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\Components\\Pages\\Evaluaciones\\EvaluacionesLista.razor",
+              "RelativeToolTip": "Components\\Pages\\Evaluaciones\\EvaluacionesLista.razor",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-14T03:15:38.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\NavMenu.razor",
+              "ToolTip": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-14T03:00:55.004Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
+              "ToolTip": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADgAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-07-14T02:55:17.917Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

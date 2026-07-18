@@ -1,0 +1,112 @@
+@page "/evaluaciones/{EvaluacionId:int}"
+
+<PageTitle>Evaluación</PageTitle>
+
+@if (_cargando)
+{
+    <p>Cargando preguntas...</p>
+}
+else if (!string.IsNullOrEmpty(_error))
+{
+    <div class="section-card perfil-error">
+        <h2>No se pudieron cargar las preguntas</h2>
+        <p>@_error</p>
+        <a href="evaluaciones" class="btn-primary-custom">Volver a evaluaciones</a>
+    </div>
+}
+else if (_finalizado)
+{
+    <div class="section-card result-card animate-in">
+        <h1>@_mensajeFinal</h1>
+        <p>Aciertos: @_aciertos / @_preguntas.Count (@_puntaje%)</p>
+        <a href="evaluaciones" class="btn-primary-custom">Volver a evaluaciones</a>
+    </div>
+}
+else if (_mostrandoFeedback)
+{
+    <div class="section-card feedback-card animate-in">
+        <h2>@_mensajeFeedback</h2>
+        <p class="explicacion">@_preguntas[_indice].Explicacion</p>
+        <button class="btn-primary-custom" @onclick="SiguientePregunta">Continuar →</button>
+    </div>
+}
+else if (_preguntas.Count > 0)
+{
+    <div class="section-card">
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:@(100*(_indice+1)/_preguntas.Count)%"></div></div>
+        <p>Pregunta @(_indice + 1) de @_preguntas.Count</p>
+        <h2>@_preguntas[_indice].Enunciado</h2>
+        <div class="opciones-list">
+            @foreach (var op in _preguntas[_indice].Opciones)
+            {
+                <button class="opcion-btn" @onclick="() => Responder(op.Id)">@op.Texto</button>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="section-card perfil-error">
+        <h2>Sin preguntas disponibles</h2>
+        <p>Esta evaluación aún no tiene preguntas asignadas. Cierra y vuelve a abrir la app.</p>
+        <a href="evaluaciones" class="btn-primary-custom">Volver a evaluaciones</a>
+    </div>
+}
+
+@code {
+    [Parameter] public int EvaluacionId { get; set; }
+    [Inject] IEvaluacionService EvaluacionService { get; set; } = default!;
+    [Inject] IPreguntaValidationService ValidationService { get; set; } = default!;
+
+    private List<PreguntaDto> _preguntas = [];
+    private int _indice;
+    private int _aciertos;
+    private bool _mostrandoFeedback;
+    private bool _finalizado;
+    private bool _cargando = true;
+    private string _mensajeFeedback = "";
+    private string _mensajeFinal = "";
+    private string _error = "";
+    private int _puntaje;
+    private DateTime _inicio = DateTime.UtcNow;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _preguntas = (await EvaluacionService.ObtenerPreguntasAsync(EvaluacionId)).ToList();
+            if (_preguntas.Count == 0)
+                _error = "No hay preguntas para esta evaluación.";
+        }
+        catch (Exception ex)
+        {
+            _error = ex.Message;
+        }
+        finally
+        {
+            _cargando = false;
+        }
+    }
+
+    private async Task Responder(int opcionId)
+    {
+        var ok = await ValidationService.ValidarRespuestaAsync(_preguntas[_indice].Id, opcionId);
+        if (ok) _aciertos++;
+        _mensajeFeedback = ok ? MensajesRefuerzo.RespuestaCorrecta : MensajesRefuerzo.RespuestaCercana;
+        _mostrandoFeedback = true;
+    }
+
+    private async Task SiguientePregunta()
+    {
+        _mostrandoFeedback = false;
+        if (_indice + 1 >= _preguntas.Count)
+        {
+            var tiempo = (int)(DateTime.UtcNow - _inicio).TotalSeconds;
+            var r = await EvaluacionService.GuardarResultadoAsync(EvaluacionId, _aciertos, _preguntas.Count, tiempo);
+            _mensajeFinal = r.Mensaje;
+            _puntaje = r.Puntaje;
+            _finalizado = true;
+        }
+        else _indice++;
+    }
+}

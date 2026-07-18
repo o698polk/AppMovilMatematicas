@@ -1,0 +1,81 @@
+@page "/progreso"
+
+<PageTitle>Mi Progreso</PageTitle>
+<PageHeader Titulo="Mi Progreso" Subtitulo="¡Mira cuánto has aprendido!" Emoji="🏆" />
+
+<div class="hero-kids animate-in">
+    <div class="hero-mascot">🌟</div>
+    <h2 class="hero-title">@(_usuario?.Alias ?? "Aprendiz")</h2>
+    <div class="stats-row">
+        <div class="stat-pill stat-points"><span>⭐</span> @(_usuario?.PuntosTotales ?? 0) puntos</div>
+        <div class="stat-pill stat-level"><span>🚀</span> Nivel @(_usuario?.Nivel ?? 1)</div>
+    </div>
+    <div class="profile-form">
+        <input @bind="_nombre" placeholder="Tu nombre" class="form-input" />
+        <input @bind="_alias" placeholder="Tu alias divertido" class="form-input" />
+        <div class="perfil-actions">
+            <button class="btn-primary-custom" @onclick="GuardarPerfil">💾 Guardar perfil</button>
+            <a href="perfil" class="btn-fav">👤 Cambiar perfil</a>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(_mensaje))
+    {
+        <p class="perfil-mensaje-inline">@_mensaje</p>
+    }
+</div>
+
+<div class="section-card">
+    <h2 class="section-title-sm">📊 Mis estadísticas</h2>
+    <div class="stats-grid">
+        <div class="stat-box">🎬 @_stats?.VideosVistos<br/><small>videos</small></div>
+        <div class="stat-box">📝 @_stats?.EvaluacionesCompletadas<br/><small>evaluaciones</small></div>
+        <div class="stat-box">🎮 @_stats?.JuegosCompletados<br/><small>juegos</small></div>
+        <div class="stat-box">🏅 @_stats?.LogrosDesbloqueados<br/><small>logros</small></div>
+    </div>
+</div>
+
+<div class="section-card">
+    <h2 class="section-title-sm">🏅 Mis logros</h2>
+    @foreach (var l in _logros)
+    {
+        <div class="logro-item @(l.Desbloqueado ? "desbloqueado" : "bloqueado")">
+            <span>@l.Icono</span>
+            <div>
+                <strong>@l.Nombre</strong>
+                <p>@l.Descripcion</p>
+            </div>
+            @if (!l.Desbloqueado) { <span>🔒</span> }
+        </div>
+    }
+</div>
+
+@code {
+    [Inject] IUsuarioService UsuarioService { get; set; } = default!;
+    [Inject] IProgresoService ProgresoService { get; set; } = default!;
+    private UsuarioDto? _usuario;
+    private EstadisticasDto? _stats;
+    private IReadOnlyList<LogroDto> _logros = [];
+    private string _nombre = "", _alias = "", _mensaje = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        _usuario = await UsuarioService.ObtenerUsuarioActualAsync();
+        _nombre = _usuario.Nombre; _alias = _usuario.Alias;
+        _stats = await ProgresoService.ObtenerEstadisticasAsync();
+        _logros = await ProgresoService.ObtenerLogrosAsync();
+    }
+
+    private async Task GuardarPerfil()
+    {
+        try
+        {
+            await UsuarioService.ActualizarPerfilAsync(_nombre, _alias);
+            _usuario = await UsuarioService.ObtenerUsuarioActualAsync();
+            _mensaje = "✅ Perfil actualizado";
+        }
+        catch (Exception ex)
+        {
+            _mensaje = ex.Message;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<div class="page-header animate-in">
+    <span class="page-header-emoji">@Emoji</span>
+    <div>
+        <h1 class="page-title">@Titulo</h1>
+        @if (!string.IsNullOrEmpty(Subtitulo))
+        {
+            <p class="page-subtitle">@Subtitulo</p>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Titulo { get; set; } = "";
+    [Parameter] public string Subtitulo { get; set; } = "";
+    [Parameter] public string Emoji { get; set; } = "📚";
+}

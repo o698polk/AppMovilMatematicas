@@ -1,0 +1,40 @@
+@page "/juegos"
+
+<PageTitle>Juegos Educativos</PageTitle>
+<PageHeader Titulo="Juegos Educativos" Subtitulo="@MensajesRefuerzo.JuegoInicio" Emoji="🎮" />
+
+<div class="juegos-grid">
+    @foreach (var j in _juegos)
+    {
+        <a href="juegos/@j.Id" class="juego-card bounce-hover">
+            <div class="juego-icon-wrap">@(ObtenerEmoji(j.Titulo))</div>
+            <h3>@j.Titulo</h3>
+            <p>@j.Descripcion</p>
+            @if (!string.IsNullOrEmpty(j.UrlExterna))
+            {
+                <span class="juego-meta">🌐 Juego online · @j.CategoriaNombre</span>
+            }
+            else
+            {
+                <span class="juego-meta">@j.CantidadPreguntas preg · ⏱️ @j.TiempoPorPregunta s</span>
+            }
+        </a>
+    }
+</div>
+
+@code {
+    [Inject] IJuegoService JuegoService { get; set; } = default!;
+    private IReadOnlyList<JuegoDto> _juegos = [];
+
+    protected override async Task OnInitializedAsync() => _juegos = await JuegoService.ObtenerJuegosAsync();
+
+    private static string ObtenerEmoji(string titulo) => titulo switch
+    {
+        var t when t.Contains("Proporcionalidad") => "⚖️",
+        var t when t.Contains("Porcentajes") => "💯",
+        var t when t.Contains("IVA") || t.Contains("Facturas") => "🧾",
+        var t when t.Contains("Regla") => "📐",
+        var t when t.Contains("Razones") => "🔢",
+        _ => "🎮"
+    };
+}

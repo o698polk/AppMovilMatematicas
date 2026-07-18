@@ -1,0 +1,81 @@
+@inject IFullscreenUiService FullscreenUi
+@inject IOrientationService Orientation
+@implements IDisposable
+
+@if (TieneInternet)
+{
+    <div class="media-player-wrap @(FullscreenUi.Activo && _esEste ? "media-fs-active" : "")">
+        <div class="video-container">
+            <iframe src="@UrlEmbed"
+                    allowfullscreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    loading="lazy"
+                    title="Video educativo"></iframe>
+        </div>
+        @if (FullscreenUi.Activo && _esEste)
+        {
+            <button type="button" class="media-fs-exit" @onclick="SalirFullscreen" aria-label="Salir de pantalla completa">✕</button>
+        }
+        else
+        {
+            <button type="button" class="btn-fullscreen" @onclick="EntrarFullscreen">⛶ Pantalla completa</button>
+        }
+    </div>
+}
+else
+{
+    <p class="offline-msg">@MensajesRefuerzo.SinInternet</p>
+}
+
+@code {
+    [Parameter] public string EmbedUrl { get; set; } = "";
+
+    private bool _esEste;
+    private bool TieneInternet => Connectivity.Current.NetworkAccess == NetworkAccess.Internet;
+
+    private string UrlEmbed
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(EmbedUrl)) return "";
+            if (EmbedUrl.Contains('?', StringComparison.Ordinal))
+                return EmbedUrl.Contains("playsinline", StringComparison.OrdinalIgnoreCase)
+                    ? EmbedUrl
+                    : EmbedUrl + "&playsinline=1";
+            return EmbedUrl + "?playsinline=1";
+        }
+    }
+
+    protected override void OnInitialized() => FullscreenUi.OnCambio += OnFullscreenCambio;
+
+    private void OnFullscreenCambio()
+    {
+        if (!FullscreenUi.Activo) _esEste = false;
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void EntrarFullscreen()
+    {
+        _esEste = true;
+        FullscreenUi.Activar();
+        Orientation.PermitirRotacion();
+    }
+
+    private void SalirFullscreen()
+    {
+        _esEste = false;
+        FullscreenUi.Desactivar();
+        Orientation.BloquearPortrait();
+    }
+
+    public void Dispose()
+    {
+        FullscreenUi.OnCambio -= OnFullscreenCambio;
+        if (_esEste && FullscreenUi.Activo)
+        {
+            FullscreenUi.Desactivar();
+            Orientation.BloquearPortrait();
+        }
+    }
+}

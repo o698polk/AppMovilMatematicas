@@ -1,0 +1,49 @@
+@page "/galeria/{GaleriaId:int}"
+
+<PageTitle>@_titulo</PageTitle>
+<PageHeader Titulo="@_titulo" Subtitulo="@_subtitulo" Emoji="🔍" />
+
+<p class="galeria-zoom-tip">🔍 Toca una imagen y usa zoom para explorar los detalles</p>
+
+<div class="image-grid">
+    @foreach (var img in _imagenes)
+    {
+        <div class="image-thumb bounce-hover" @onclick="() => Abrir(img)">
+            <img src="@img.RutaRecurso" alt="@img.Titulo" />
+            <span>@img.Titulo</span>
+            <small>@img.Descripcion</small>
+        </div>
+    }
+</div>
+
+<a href="galeria" class="btn-back">← Volver a galerías</a>
+
+@if (_seleccionada is not null)
+{
+    <ImageViewer Titulo="@_seleccionada.Titulo" Descripcion="@_seleccionada.Descripcion" Ruta="@_seleccionada.RutaRecurso" OnCerrar="Cerrar" />
+}
+
+@code {
+    [Parameter] public int GaleriaId { get; set; }
+    [Inject] IGaleriaService GaleriaService { get; set; } = default!;
+    private IReadOnlyList<ImagenGaleriaDto> _imagenes = [];
+    private ImagenGaleriaDto? _seleccionada;
+    private string _titulo = "Galería";
+    private string _subtitulo = "Infografías educativas";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var galerias = await GaleriaService.ObtenerGaleriasAsync();
+        var galeria = galerias.FirstOrDefault(g => g.Id == GaleriaId);
+        if (galeria is not null)
+        {
+            _titulo = galeria.Titulo;
+            _subtitulo = galeria.Descripcion;
+        }
+
+        _imagenes = await GaleriaService.ObtenerImagenesAsync(GaleriaId);
+    }
+
+    private void Abrir(ImagenGaleriaDto img) => _seleccionada = img;
+    private void Cerrar() => _seleccionada = null;
+}

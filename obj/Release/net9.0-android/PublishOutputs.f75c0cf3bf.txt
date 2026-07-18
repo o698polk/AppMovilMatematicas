@@ -1,0 +1,4 @@
+d:\IPA2026_EJERCICIOS_PRACTICOS\AppEducativa_Matematica\app\MauiApp2\bin\Release\net9.0-android\publish\com.ipa.proporciones-Signed.apk
+d:\IPA2026_EJERCICIOS_PRACTICOS\AppEducativa_Matematica\app\MauiApp2\bin\Release\net9.0-android\publish\com.ipa.proporciones.apk
+d:\IPA2026_EJERCICIOS_PRACTICOS\AppEducativa_Matematica\app\MauiApp2\bin\Release\net9.0-android\publish\com.ipa.proporciones-Signed.aab
+d:\IPA2026_EJERCICIOS_PRACTICOS\AppEducativa_Matematica\app\MauiApp2\bin\Release\net9.0-android\publish\_Microsoft.Android.Resource.Designer.dll

@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MauiApp2</name>
+    </assembly>
+    <members>
+        <member name="T:MauiApp2.Data.DatabaseBootstrap">
+            <summary>
+            Inicialización segura de SQLite fuera del hilo UI (evita cierre en Android).
+            </summary>
+        </member>
+        <member name="M:MauiApp2.Data.DatabaseInitializer.ActualizarUrlsVideosAsync(System.Threading.CancellationToken)">
+            <summary>
+            Sincroniza URLs de YouTube si la BD ya existía con enlaces anteriores.
+            </summary>
+        </member>
+        <member name="M:MauiApp2.Data.DatabaseInitializer.ActualizarGaleriasAsync(System.Threading.CancellationToken)">
+            <summary>
+            Migra galerías SVG antiguas a infografías PNG y sincroniza el catálogo.
+            </summary>
+        </member>
+        <member name="M:MauiApp2.Data.DatabaseInitializer.ActualizarJuegosAsync(System.Threading.CancellationToken)">
+            <summary>
+            Migra juegos internos antiguos a juegos externos del catálogo oficial.
+            </summary>
+        </member>
+        <member name="M:MauiApp2.Data.DataSeeder.AsegurarPreguntasEvaluacionesAsync(MauiApp2.Data.AppDbContext,System.Threading.CancellationToken)">
+            <summary>
+            Garantiza banco de preguntas y asignación a evaluaciones (repara BD incompleta en móvil).
+            </summary>
+        </member>
+        <member name="M:MauiApp2.Data.DataSeeder.LiberarPreguntasBloqueadasAsync(MauiApp2.Data.AppDbContext,System.Threading.CancellationToken)">
+            <summary>
+            Libera preguntas atadas a juegos internos obsoletos o externos (sin banco propio).
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Data.Seed.EvaluacionCatalog">
+            <summary>
+            Mapeo estable entre evaluaciones y temas del banco de preguntas.
+            No depende del orden de IDs en SQLite.
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Data.Seed.EvaluacionPreguntasCatalog">
+            <summary>
+            Catálogo de preguntas por evaluación: construye desde el banco y serializa/deserializa JSON.
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Data.Seed.GaleriaCatalog">
+            <summary>
+            Catálogo oficial de galerías educativas con infografías PNG.
+            Alineado con los 6 videos de VideoCatalog.
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Data.Seed.JuegoCatalog">
+            <summary>
+            Catálogo oficial de juegos educativos externos (Educaplay, calculadoras).
+            </summary>
+        </member>
+        <member name="M:MauiApp2.Data.Seed.JuegoCatalog.EducaplayRecurso">
+            <remarks>
+            Pattern:<br/>
+            <code>educaplay\\.com/recursos-educativos/([^?#]+)</code><br/>
+            Options:<br/>
+            <code>RegexOptions.IgnoreCase</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a character in the set [Ee].<br/>
+            ○ Match a character in the set [Dd].<br/>
+            ○ Match a character in the set [Uu].<br/>
+            ○ Match a character in the set [Cc].<br/>
+            ○ Match a character in the set [Aa].<br/>
+            ○ Match a character in the set [Pp].<br/>
+            ○ Match a character in the set [Ll].<br/>
+            ○ Match a character in the set [Aa].<br/>
+            ○ Match a character in the set [Yy].<br/>
+            ○ Match '.'.<br/>
+            ○ Match a character in the set [Cc].<br/>
+            ○ Match a character in the set [Oo].<br/>
+            ○ Match a character in the set [Mm].<br/>
+            ○ Match '/'.<br/>
+            ○ Match a character in the set [Rr].<br/>
+            ○ Match a character in the set [Ee].<br/>
+            ○ Match a character in the set [Cc].<br/>
+            ○ Match a character in the set [Uu].<br/>
+            ○ Match a character in the set [Rr].<br/>
+            ○ Match a character in the set [Ss].<br/>
+            ○ Match a character in the set [Oo].<br/>
+            ○ Match a character in the set [Ss].<br/>
+            ○ Match '-'.<br/>
+            ○ Match a character in the set [Ee].<br/>
+            ○ Match a character in the set [Dd].<br/>
+            ○ Match a character in the set [Uu].<br/>
+            ○ Match a character in the set [Cc].<br/>
+            ○ Match a character in the set [Aa].<br/>
+            ○ Match a character in the set [Tt].<br/>
+            ○ Match a character in the set [Ii].<br/>
+            ○ Match a character in the set [Vv].<br/>
+            ○ Match a character in the set [Oo].<br/>
+            ○ Match a character in the set [Ss].<br/>
+            ○ Match '/'.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character in the set [^#?] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:MauiApp2.Data.Seed.PreguntasJsonLoader">
+            <summary>
+            Carga preguntas desde JSON embebido / wwwroot. IDs sintéticos negativos para no chocar con SQLite.
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Data.Seed.VideoCatalog">
+            <summary>
+            Catálogo oficial de videos educativos de YouTube.
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Platforms.Android.FullscreenWebChromeClient">
+            <summary>
+            WebChromeClient que permite fullscreen nativo de iframes (YouTube/juegos).
+            </summary>
+        </member>
+        <member name="M:MauiApp2.Platforms.Android.FullscreenWebChromeClient.#ctor(Android.App.Activity,Android.Webkit.WebChromeClient)">
+            <summary>
+            WebChromeClient que permite fullscreen nativo de iframes (YouTube/juegos).
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Services.IFullscreenUiService">
+            <summary>
+            Modo pantalla completa de la app (oculta chrome de navegación).
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Services.IOrientationService">
+            <summary>
+            Control de orientación (portrait fijo vs rotación libre en fullscreen).
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Services.INavegacionUiService">
+            <summary>
+            Estado global de visibilidad de la barra de navegación (persistido en el dispositivo).
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Services.ISesionService">
+            <summary>
+            Guarda el ID del perfil activo en preferencias locales (sin contraseña).
+            </summary>
+        </member>
+        <member name="T:MauiApp2.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Button.TextColorTo(Microsoft.Maui.Controls.Button,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_DatePicker.TextColorTo(Microsoft.Maui.Controls.DatePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Editor.TextColorTo(Microsoft.Maui.Controls.Editor,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Entry.TextColorTo(Microsoft.Maui.Controls.Entry,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_InputView.TextColorTo(Microsoft.Maui.Controls.InputView,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Label.TextColorTo(Microsoft.Maui.Controls.Label,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Picker.TextColorTo(Microsoft.Maui.Controls.Picker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_RadioButton.TextColorTo(Microsoft.Maui.Controls.RadioButton,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_SearchBar.TextColorTo(Microsoft.Maui.Controls.SearchBar,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_TimePicker.TextColorTo(Microsoft.Maui.Controls.TimePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.EducaplayRecurso_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the EducaplayRecurso method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.EducaplayRecurso_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_D63843C909E66CC762928CD9BCACD4D5362D218018FEB202E303801EEBE8027C">
+            <summary>Supports searching for the string "educaplay.com/recursos-educativos/".</summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,81 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\obj\\Debug\\net9.0-windows10.0.19041.0\\win10-x64\\scopedcss\\bundle\\MauiApp2.styles.css",
+      "PackagePath": "staticwebassets\\MauiApp2.styles.css"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\data\\evaluaciones-preguntas.json",
+      "PackagePath": "staticwebassets\\data\\evaluaciones-preguntas.json"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\icono.png",
+      "PackagePath": "staticwebassets\\icono.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\iconoapk.png",
+      "PackagePath": "staticwebassets\\iconoapk.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\images\\galeria\\IVA_y_Facturas.png",
+      "PackagePath": "staticwebassets\\images\\galeria\\IVA_y_Facturas.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\images\\galeria\\Porcentajes_Basicos.png",
+      "PackagePath": "staticwebassets\\images\\galeria\\Porcentajes_Basicos.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\images\\galeria\\Proporcionalidad_Directa.png",
+      "PackagePath": "staticwebassets\\images\\galeria\\Proporcionalidad_Directa.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\images\\galeria\\Proporcionalidad_Inversa.png",
+      "PackagePath": "staticwebassets\\images\\galeria\\Proporcionalidad_Inversa.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\images\\galeria\\Razones_y_Proporciones.png",
+      "PackagePath": "staticwebassets\\images\\galeria\\Razones_y_Proporciones.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\images\\galeria\\Regla_de_Tres.png",
+      "PackagePath": "staticwebassets\\images\\galeria\\Regla_de_Tres.png"
+    },
+    {
+      "Id": "D:\\IPA2026_EJERCICIOS_PRACTICOS\\AppEducativa_Matematica\\app\\MauiApp2\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.MauiApp2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.MauiApp2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.build.MauiApp2.props",
+      "PackagePath": "build\\MauiApp2.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.buildMultiTargeting.MauiApp2.props",
+      "PackagePath": "buildMultiTargeting\\MauiApp2.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0-windows10.0.19041.0\\win10-x64\\staticwebassets\\msbuild.buildTransitive.MauiApp2.props",
+      "PackagePath": "buildTransitive\\MauiApp2.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

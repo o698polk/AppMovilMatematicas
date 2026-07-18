@@ -1,0 +1,95 @@
+@page "/"
+@inject IUsuarioService UsuarioService
+@inject IProgresoService ProgresoService
+
+<PageTitle>Inicio - MateAppPlus</PageTitle>
+
+<div class="hero-kids animate-in">
+    <div class="hero-stars">
+        <span>⭐</span><span>✨</span><span>🌟</span>
+    </div>
+    <div class="hero-mascot">🧒</div>
+    <h1 class="hero-title">¡Hola, @(_usuario?.Alias ?? "Aprendiz")!</h1>
+    <p class="hero-text">@MensajesRefuerzo.Bienvenida</p>
+    @if (_usuario is not null)
+    {
+        <div class="stats-row">
+            <div class="stat-pill stat-points">
+                <span class="stat-icon">⭐</span>
+                <span>@_usuario.PuntosTotales puntos</span>
+            </div>
+            <div class="stat-pill stat-level">
+                <span class="stat-icon">🚀</span>
+                <span>Nivel @_usuario.Nivel</span>
+            </div>
+        </div>
+    }
+</div>
+
+<h2 class="section-title animate-in">¿Qué quieres explorar hoy?</h2>
+
+<div class="module-grid">
+    <a href="videos" class="module-card card-celeste bounce-hover">
+        <div class="module-icon-wrap">🎬</div>
+        <h3>Videos</h3>
+        <p>Mira y aprende</p>
+        <span class="module-arrow">→</span>
+    </a>
+    <a href="evaluaciones" class="module-card card-green bounce-hover">
+        <div class="module-icon-wrap">📝</div>
+        <h3>Evaluaciones</h3>
+        <p>Pon a prueba lo aprendido</p>
+        <span class="module-arrow">→</span>
+    </a>
+    <a href="galeria" class="module-card card-white bounce-hover">
+        <div class="module-icon-wrap">🖼️</div>
+        <h3>Galería</h3>
+        <p>Diagramas divertidos</p>
+        <span class="module-arrow">→</span>
+    </a>
+    <a href="juegos" class="module-card card-blue bounce-hover">
+        <div class="module-icon-wrap">🎮</div>
+        <h3>Juegos</h3>
+        <p>¡Aprende jugando!</p>
+        <span class="module-arrow">→</span>
+    </a>
+    <a href="progreso" class="module-card card-mint bounce-hover">
+        <div class="module-icon-wrap">🏆</div>
+        <h3>Mi Progreso</h3>
+        <p>Tus logros y estrellas</p>
+        <span class="module-arrow">→</span>
+    </a>
+    <a href="perfil" class="module-card card-white bounce-hover">
+        <div class="module-icon-wrap">👤</div>
+        <h3>Mi Perfil</h3>
+        <p>Cambiar jugador o nueva partida</p>
+        <span class="module-arrow">→</span>
+    </a>
+</div>
+
+@if (_actividad.Count > 0)
+{
+    <div class="section-card animate-in">
+        <h2 class="section-title-sm">🎉 Tu aventura reciente</h2>
+        <ul class="activity-list">
+            @foreach (var a in _actividad)
+            {
+                <li>
+                    <span class="activity-desc">@a.Descripcion</span>
+                    <span class="activity-points">+@a.Puntos ⭐</span>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@code {
+    private UsuarioDto? _usuario;
+    private IReadOnlyList<ProgresoRecienteDto> _actividad = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _usuario = await UsuarioService.ObtenerUsuarioActualAsync();
+        _actividad = await ProgresoService.ObtenerActividadRecienteAsync();
+    }
+}

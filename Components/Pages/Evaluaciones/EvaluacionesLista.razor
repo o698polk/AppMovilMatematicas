@@ -1,0 +1,26 @@
+@page "/evaluaciones"
+
+<PageTitle>Evaluaciones</PageTitle>
+<PageHeader Titulo="Evaluaciones" Subtitulo="¡Demuestra lo que sabes sin prisa!" Emoji="📝" />
+
+<div class="module-grid">
+    @foreach (var e in _evaluaciones)
+    {
+        <a href="evaluaciones/@e.Id" class="module-card card-green bounce-hover">
+            <div class="module-icon-wrap">📝</div>
+            <h3>@e.Titulo</h3>
+            <p>@e.Descripcion</p>
+            <span class="module-meta">@e.CantidadPreguntas preguntas</span>
+            @if (e.MejorPuntaje.HasValue)
+            {
+                <span class="stat-pill stat-level">🏅 Mejor: @e.MejorPuntaje%</span>
+            }
+        </a>
+    }
+</div>
+
+@code {
+    [Inject] IEvaluacionService EvaluacionService { get; set; } = default!;
+    private IReadOnlyList<EvaluacionDto> _evaluaciones = [];
+    protected override async Task OnInitializedAsync() => _evaluaciones = await EvaluacionService.ObtenerEvaluacionesAsync();
+}

@@ -1,0 +1,31 @@
+@page "/galeria"
+
+<PageTitle>Galería Educativa</PageTitle>
+<PageHeader Titulo="Galería Educativa" Subtitulo="Explora infografías con zoom mágico" Emoji="🖼️" />
+
+<div class="galeria-grid">
+    @foreach (var g in _galerias)
+    {
+        <a href="galeria/@g.Id" class="galeria-card bounce-hover">
+            @if (!string.IsNullOrEmpty(g.RutaPortada))
+            {
+                <img src="@g.RutaPortada" alt="@g.Titulo" />
+            }
+            else
+            {
+                <div class="galeria-card-placeholder">🖼️</div>
+            }
+            <div class="galeria-info">
+                <h3>@g.Titulo</h3>
+                <p>@g.Descripcion</p>
+                <span>@g.CantidadImagenes @(g.CantidadImagenes == 1 ? "infografía" : "infografías") · @g.CategoriaNombre</span>
+            </div>
+        </a>
+    }
+</div>
+
+@code {
+    [Inject] IGaleriaService GaleriaService { get; set; } = default!;
+    private IReadOnlyList<GaleriaDto> _galerias = [];
+    protected override async Task OnInitializedAsync() => _galerias = await GaleriaService.ObtenerGaleriasAsync();
+}

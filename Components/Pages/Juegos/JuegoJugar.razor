@@ -1,0 +1,166 @@
+@page "/juegos/{JuegoId:int}"
+@implements IDisposable
+
+<PageTitle>@(_juego?.Titulo ?? "Juego")</PageTitle>
+
+@if (_juego is null)
+{
+    <p>Cargando...</p>
+}
+else if (!string.IsNullOrEmpty(_juego.UrlExterna))
+{
+    <PageHeader Titulo="@_juego.Titulo" Subtitulo="@_juego.Descripcion" Emoji="🎮" />
+
+    @if (_finalizado)
+    {
+        <div class="section-card result-card animate-in">
+            <h2>@_mensajeFinal</h2>
+            <a href="juegos" class="btn-primary-custom">Volver a juegos</a>
+        </div>
+    }
+    else
+    {
+        <ExternalGamePlayer @key="_partidaKey" EmbedUrl="@(_juego.UrlEmbed ?? _juego.UrlExterna)" />
+        <div class="actions-row juego-actions">
+            <button class="btn-primary-custom" @onclick="NuevaPartidaJuego">🔄 Nueva partida</button>
+            <button class="btn-reset" @onclick="ResetearJuego">♻️ Resetear juego</button>
+            <button class="btn-fav" @onclick="AbrirNavegador">🌐 Abrir en navegador</button>
+            <button class="btn-fav" @onclick="MarcarCompletado">✅ ¡Terminé de jugar!</button>
+            <a href="juegos" class="btn-back">← Volver</a>
+        </div>
+        @if (!string.IsNullOrEmpty(_mensajeJuego))
+        {
+            <p class="perfil-mensaje-inline">@_mensajeJuego</p>
+        }
+    }
+}
+else if (_finalizado)
+{
+    <div class="section-card result-card animate-in">
+        <h1>@_mensajeFinal 🎉</h1>
+        <p>Aciertos: @_aciertos / @_preguntas.Count (@_puntaje%)</p>
+        <a href="juegos" class="btn-primary-custom">Volver a juegos</a>
+    </div>
+}
+else if (_mostrandoFeedback)
+{
+    <div class="section-card feedback-card animate-in">
+        <h2>@_mensajeFeedback</h2>
+        <p>@_preguntas[_indice].Explicacion</p>
+        <button class="btn-primary-custom" @onclick="Siguiente">Continuar →</button>
+    </div>
+}
+else if (_preguntas.Count > 0)
+{
+    <div class="section-card">
+        <div class="timer-bar">⏱️ @_segundosRestantes s</div>
+        <h2>@_preguntas[_indice].Enunciado</h2>
+        <div class="kahoot-grid">
+            @foreach (var (op, i) in _preguntas[_indice].Opciones.Select((o, idx) => (o, idx)))
+            {
+                <button class="kahoot-opt opt-@i" @onclick="() => Responder(op.Id)">@op.Texto</button>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <p>Juego no disponible.</p>
+}
+
+@code {
+    [Parameter] public int JuegoId { get; set; }
+    [Inject] IJuegoService JuegoService { get; set; } = default!;
+    [Inject] IPreguntaValidationService ValidationService { get; set; } = default!;
+
+    private JuegoDto? _juego;
+    private List<PreguntaDto> _preguntas = [];
+    private int _indice, _aciertos, _segundosRestantes, _tiempoPorPregunta, _puntaje;
+    private bool _mostrandoFeedback, _finalizado;
+    private string _mensajeFeedback = "", _mensajeFinal = "", _mensajeJuego = "";
+    private int _partidaKey;
+    private DateTime _inicio = DateTime.UtcNow;
+    private System.Timers.Timer? _timer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _juego = await JuegoService.ObtenerJuegoAsync(JuegoId);
+        if (_juego is null || !string.IsNullOrEmpty(_juego.UrlExterna)) return;
+
+        _preguntas = (await JuegoService.ObtenerPreguntasJuegoAsync(JuegoId)).ToList();
+        _tiempoPorPregunta = _juego.TiempoPorPregunta;
+        IniciarTimer();
+    }
+
+    private async Task AbrirNavegador()
+    {
+        if (_juego?.UrlExterna is null) return;
+        await Launcher.Default.OpenAsync(new Uri(_juego.UrlExterna));
+    }
+
+    private async Task MarcarCompletado()
+    {
+        var r = await JuegoService.RegistrarJuegoExternoAsync(JuegoId);
+        _mensajeFinal = r.Mensaje;
+        _finalizado = true;
+    }
+
+    private void NuevaPartidaJuego()
+    {
+        _finalizado = false;
+        _mensajeJuego = MensajesRefuerzo.PartidaReiniciada;
+        _partidaKey++;
+    }
+
+    private async Task ResetearJuego()
+    {
+        await JuegoService.ReiniciarPartidaJuegoAsync(JuegoId);
+        _finalizado = false;
+        _mensajeJuego = MensajesRefuerzo.ProgresoReseteado;
+        _partidaKey++;
+    }
+
+    private void IniciarTimer()
+    {
+        _segundosRestantes = _tiempoPorPregunta;
+        _timer?.Dispose();
+        _timer = new System.Timers.Timer(1000);
+        _timer.Elapsed += async (_, _) =>
+        {
+            _segundosRestantes--;
+            if (_segundosRestantes <= 0) await InvokeAsync(async () => await TiempoAgotado());
+            else await InvokeAsync(StateHasChanged);
+        };
+        _timer.Start();
+    }
+
+    private async Task Responder(int opcionId)
+    {
+        _timer?.Stop();
+        var ok = await ValidationService.ValidarRespuestaAsync(_preguntas[_indice].Id, opcionId);
+        if (ok) _aciertos++;
+        _mensajeFeedback = ok ? MensajesRefuerzo.RespuestaCorrecta : MensajesRefuerzo.RespuestaCercana;
+        _mostrandoFeedback = true;
+    }
+
+    private Task TiempoAgotado()
+    {
+        _timer?.Stop();
+        _mensajeFeedback = MensajesRefuerzo.TiempoAgotado;
+        _mostrandoFeedback = true;
+        return Task.CompletedTask;
+    }
+
+    private async Task Siguiente()
+    {
+        _mostrandoFeedback = false;
+        if (_indice + 1 >= _preguntas.Count)
+        {
+            var r = await JuegoService.GuardarResultadoAsync(JuegoId, _aciertos, _preguntas.Count, (int)(DateTime.UtcNow - _inicio).TotalSeconds);
+            _mensajeFinal = r.Mensaje; _puntaje = r.Puntaje; _finalizado = true;
+        }
+        else { _indice++; IniciarTimer(); }
+    }
+
+    public void Dispose() => _timer?.Dispose();
+}
